@@ -46,6 +46,7 @@
       ],
       on_enter: { GameState::GameOver => [cleanup_game] }
   });
+  ```
 
   🎯 Why This Matters
 
