@@ -8,8 +8,6 @@
   [![Bevy 
   tracking](https://img.shields.io/badge/Bevy%20tracking-released%20version-lightblue)](https://bevyengine.org/learn/quick-start/plugin-development/)
 
-  Turn **50 lines of boilerplate** into **5 lines of pure intent**.
-
   ## ✨ Before & After
 
   ### Before (Traditional Bevy Plugin)
