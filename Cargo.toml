@@ -2,7 +2,7 @@
   name = "bevy-plugin-builder"
   version = "0.1.0"
   edition = "2021"
-  rust-version = "1.70"  # Latest stable minimum
+  rust-version = "1.87"  # Follow Bevy's policy: latest stable
   authors = ["Noah Sabaj <noahsabaj@gmail.com>"]
   license = "MIT OR Apache-2.0"  # 2025 Bevy standard
   description = "Declarative plugin system for Bevy - eliminate boilerplate with beautiful syntax"

@@ -46,7 +46,7 @@ fn update_score(
         info!("Score: {}", score.current);
 
         if score.current >= 1000 {
-            game_over_events.send(GameOver {
+            game_over_events.write(GameOver {
                 final_score: score.current,
             });
         }
@@ -64,7 +64,7 @@ fn check_input(
     mut score_events: EventWriter<PlayerScored>,
 ) {
     if keyboard.just_pressed(KeyCode::Space) {
-        score_events.send(PlayerScored { points: 10 });
+        score_events.write(PlayerScored { points: 10 });
     }
 }
 
