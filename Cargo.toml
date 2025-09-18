@@ -1,0 +1,36 @@
+[package]
+  name = "bevy-plugin-builder"
+  version = "0.1.0"
+  edition = "2021"
+  rust-version = "1.70"  # Latest stable minimum
+  authors = ["Your Name <email@example.com>"]
+  license = "MIT OR Apache-2.0"  # 2025 Bevy standard
+  description = "Declarative plugin system for Bevy - eliminate boilerplate with beautiful syntax"
+  homepage = "https://github.com/yourusername/bevy-plugin-builder"
+  repository = "https://github.com/yourusername/bevy-plugin-builder"
+  documentation = "https://docs.rs/bevy-plugin-builder"
+  readme = "README.md"
+  keywords = ["bevy", "plugin", "macro", "declarative", "automation"]
+  categories = ["game-development", "development-tools::procedural-macro-helpers"]
+  exclude = ["assets/", "examples/screenshots/"]
+
+  [dependencies]
+  bevy = { version = "0.16", default-features = false, features = ["bevy_app"] }
+
+  [dev-dependencies]
+  bevy = { version = "0.16", features = ["default"] }
+  trybuild = "1.0"  # For macro testing
+
+  [workspace]
+  # If we create multiple related crates later
+
+  [[example]]
+  name = "basic_plugin"
+  required-features = []
+
+  [[example]]
+  name = "complex_plugin"
+  required-features = []
+
+  [package.metadata.docs.rs]
+  features = ["bevy/default"]
