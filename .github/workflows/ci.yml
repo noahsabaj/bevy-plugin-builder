@@ -1,0 +1,24 @@
+name: CI
+  on: [push, pull_request]
+
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: dtolnay/rust-toolchain@stable
+        - uses: Swatinem/rust-cache@v2
+        - run: cargo test --all-features
+        - run: cargo clippy -- -D warnings
+        - run: cargo fmt --check
+        - run: cargo doc --no-deps
+
+    compatibility:
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          bevy-version: ["0.16", "0.17"]  # Test multiple Bevy versions
+      steps:
+        - uses: actions/checkout@v4
+        - uses: dtolnay/rust-toolchain@stable
+        - run: cargo test --features bevy/${{ matrix.bevy-version }}
