@@ -59,10 +59,7 @@ fn handle_game_over(mut game_over_events: EventReader<GameOver>) {
     }
 }
 
-fn check_input(
-    keyboard: Res<ButtonInput<KeyCode>>,
-    mut score_events: EventWriter<PlayerScored>,
-) {
+fn check_input(keyboard: Res<ButtonInput<KeyCode>>, mut score_events: EventWriter<PlayerScored>) {
     if keyboard.just_pressed(KeyCode::Space) {
         score_events.write(PlayerScored { points: 10 });
     }

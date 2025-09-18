@@ -176,6 +176,6 @@
 mod macros;
 
 // Re-export commonly used Bevy types for convenience
-pub use bevy::prelude::{Plugin, App, Startup, Update, FixedUpdate, OnEnter, OnExit};
+pub use bevy::prelude::{App, FixedUpdate, OnEnter, OnExit, Plugin, Startup, Update};
 
 // The macro is automatically available via #[macro_export] in macros.rs

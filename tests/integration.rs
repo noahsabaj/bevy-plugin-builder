@@ -121,7 +121,7 @@ fn test_basic_plugin_compilation() {
 fn test_full_feature_plugin() {
     let mut app = App::new();
     app.add_plugins(StatesPlugin)
-       .add_plugins(FullFeatureTestPlugin);
+        .add_plugins(FullFeatureTestPlugin);
 
     // Verify all resources were registered
     assert!(app.world().contains_resource::<TestResource>());
@@ -148,7 +148,11 @@ fn test_system_execution() {
     app.update();
 
     // Check that startup system ran (spawned entity)
-    let entities: Vec<_> = app.world_mut().query::<&TestComponent>().iter(app.world()).collect();
+    let entities: Vec<_> = app
+        .world_mut()
+        .query::<&TestComponent>()
+        .iter(app.world())
+        .collect();
     assert_eq!(entities.len(), 1);
     assert_eq!(entities[0].value, 42.0);
 
@@ -165,14 +169,16 @@ fn test_system_execution() {
 fn test_state_transitions() {
     let mut app = App::new();
     app.add_plugins(StatesPlugin)
-       .add_plugins(FullFeatureTestPlugin);
+        .add_plugins(FullFeatureTestPlugin);
 
     // Initial state should be StateA
     let state = app.world().resource::<State<TestState>>();
     assert_eq!(*state.get(), TestState::StateA);
 
     // Transition to StateB
-    app.world_mut().resource_mut::<NextState<TestState>>().set(TestState::StateB);
+    app.world_mut()
+        .resource_mut::<NextState<TestState>>()
+        .set(TestState::StateB);
     app.update();
 
     // Verify transition happened
@@ -180,7 +186,11 @@ fn test_state_transitions() {
     assert_eq!(*state.get(), TestState::StateB);
 
     // Verify on_enter system ran (spawned additional entity)
-    let entities: Vec<_> = app.world_mut().query::<&TestComponent>().iter(app.world()).collect();
+    let entities: Vec<_> = app
+        .world_mut()
+        .query::<&TestComponent>()
+        .iter(app.world())
+        .collect();
     assert_eq!(entities.len(), 2); // startup + on_enter systems
 
     // Find the entity with value 100.0 (from on_enter system)
@@ -212,7 +222,7 @@ fn test_event_registration() {
 fn test_custom_init_and_finish() {
     let mut app = App::new();
     app.add_plugins(StatesPlugin)
-       .add_plugins(FullFeatureTestPlugin);
+        .add_plugins(FullFeatureTestPlugin);
 
     // Verify custom_init ran (added ClearColor resource)
     assert!(app.world().contains_resource::<ClearColor>());
@@ -228,7 +238,7 @@ fn test_custom_init_and_finish() {
 fn test_conditional_systems() {
     let mut app = App::new();
     app.add_plugins(StatesPlugin)
-       .add_plugins(FullFeatureTestPlugin);
+        .add_plugins(FullFeatureTestPlugin);
 
     // Initial state is StateA, so conditional system should run
     app.update();
@@ -239,7 +249,9 @@ fn test_conditional_systems() {
     assert_eq!(resource.value, 1);
 
     // Transition to StateB
-    app.world_mut().resource_mut::<NextState<TestState>>().set(TestState::StateB);
+    app.world_mut()
+        .resource_mut::<NextState<TestState>>()
+        .set(TestState::StateB);
     app.update();
 
     // After transition, the conditional system should not run anymore

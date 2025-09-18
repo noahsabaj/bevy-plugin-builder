@@ -94,7 +94,10 @@ fn enter_main_menu(mut commands: Commands) {
     info!("📋 Entering main menu");
     commands.spawn((
         Text::new("Press ENTER to play"),
-        TextFont { font_size: 30.0, ..default() },
+        TextFont {
+            font_size: 30.0,
+            ..default()
+        },
         TextColor(Color::WHITE),
         MenuText,
         Name::new("MenuText"),
@@ -178,10 +181,7 @@ fn update_game_timer(time: Res<Time>, mut timer: ResMut<GameTimer>) {
     timer.seconds += time.delta_secs();
 }
 
-fn check_level_up(
-    mut stats: ResMut<PlayerStats>,
-    mut level_up_events: EventWriter<LevelUp>,
-) {
+fn check_level_up(mut stats: ResMut<PlayerStats>, mut level_up_events: EventWriter<LevelUp>) {
     let required_xp = (stats.level + 1) * 100;
     if stats.experience >= required_xp {
         stats.level += 1;
@@ -200,7 +200,10 @@ fn handle_damage(
 ) {
     for event in damage_events.read() {
         stats.health -= event.damage;
-        info!("💔 Player took {} damage! Health: {}", event.damage, stats.health);
+        info!(
+            "💔 Player took {} damage! Health: {}",
+            event.damage, stats.health
+        );
 
         if stats.health <= 0.0 {
             next_state.set(GameState::GameOver);
