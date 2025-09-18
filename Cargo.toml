@@ -3,7 +3,7 @@
   version = "0.1.0"
   edition = "2021"
   rust-version = "1.70"  # Latest stable minimum
-  authors = ["Noah Sabaj noahsabaj@gmail.com"]
+  authors = ["Noah Sabaj <noahsabaj@gmail.com>"]
   license = "MIT OR Apache-2.0"  # 2025 Bevy standard
   description = "Declarative plugin system for Bevy - eliminate boilerplate with beautiful syntax"
   homepage = "https://github.com/noahsabaj/bevy-plugin-builder"
@@ -15,7 +15,7 @@
   exclude = ["assets/", "examples/screenshots/"]
 
   [dependencies]
-  bevy = { version = "0.16", default-features = false, features = ["bevy_app"] }
+  bevy = "0.16"
 
   [dev-dependencies]
   bevy = { version = "0.16", features = ["default"] }

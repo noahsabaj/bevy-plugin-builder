@@ -4,7 +4,7 @@
 
   [![Crates.io](https://img.shields.io/crates/v/bevy-plugin-builder.svg)](https://crates.io/crates/bevy-plugin-builder)
   [![Documentation](https://docs.rs/bevy-plugin-builder/badge.svg)](https://docs.rs/bevy-plugin-builder)
-  [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](https://github.com/yourusername/bevy-plugin-builder)
+  [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](https://github.com/noahsabaj/bevy-plugin-builder)
   [![Bevy 
   tracking](https://img.shields.io/badge/Bevy%20tracking-released%20version-lightblue)](https://bevyengine.org/learn/quick-start/plugin-development/)
 
