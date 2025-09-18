@@ -31,9 +31,9 @@
              .add_systems(OnEnter(GameState::GameOver), cleanup_game);
       }
   }
-
+  ```
   After (bevy-plugin-builder)
-
+  ```rust
   use bevy_plugin_builder::define_plugin;
 
   define_plugin!(GamePlugin {
