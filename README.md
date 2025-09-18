@@ -56,8 +56,6 @@
   - Perfect readability - intent over implementation
   - World-first features like custom_finish support
 
-  [Include GIFs/screenshots of examples running]
-
   📦 Installation
 
   [dependencies]
