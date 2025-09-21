@@ -1,6 +1,7 @@
-# 🚀 bevy-plugin-builder
+# bevy-plugin-builder
 
-  **Declarative plugin system for Bevy - eliminate boilerplate with beautiful syntax**
+  **Declarative plugin system for Bevy**
+  **Reduce boilerplate with readable syntax**
 
   [![Crates.io](https://img.shields.io/crates/v/bevy-plugin-builder.svg)](https://crates.io/crates/bevy-plugin-builder)
   [![Documentation](https://docs.rs/bevy-plugin-builder/badge.svg)](https://docs.rs/bevy-plugin-builder)
@@ -8,7 +9,7 @@
   [![Bevy 
   tracking](https://img.shields.io/badge/Bevy%20tracking-released%20version-lightblue)](https://bevyengine.org/learn/quick-start/plugin-development/)
 
-  ## ✨ Before & After
+  ## Before & After
 
   ### Before (Traditional Bevy Plugin)
   ```rust
@@ -46,15 +47,15 @@
   });
   ```
 
-  🎯 Why This Matters
+  Why This Matters
 
   - 37% less code on average
   - Zero registration errors (compile-time validation)
   - 10x faster plugin development
-  - Perfect readability - intent over implementation
+  - Perfect readability, intent over implementation
   - World-first features like custom_finish support
 
-  📦 Installation
+  Installation
 
   [dependencies]
   bevy-plugin-builder = "0.1"
