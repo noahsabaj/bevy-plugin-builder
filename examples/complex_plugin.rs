@@ -81,17 +81,17 @@ struct MenuText;
 
 // Systems
 fn setup_game_world(mut commands: Commands) {
-    info!("🌍 Setting up game world...");
+    info!("Setting up game world...");
     commands.spawn(Camera2d);
 }
 
 fn load_game_assets() {
-    info!("📦 Loading game assets...");
+    info!("Loading game assets...");
     // Simulate asset loading
 }
 
 fn enter_main_menu(mut commands: Commands) {
-    info!("📋 Entering main menu");
+    info!("Entering main menu");
     commands.spawn((
         Text::new("Press ENTER to play"),
         TextFont {
@@ -105,14 +105,14 @@ fn enter_main_menu(mut commands: Commands) {
 }
 
 fn exit_main_menu(mut commands: Commands, query: Query<Entity, With<MenuText>>) {
-    info!("🚀 Exiting main menu");
+    info!("Exiting main menu");
     for entity in &query {
         commands.entity(entity).despawn();
     }
 }
 
 fn enter_playing(mut commands: Commands) {
-    info!("🎮 Starting game!");
+    info!("Starting game!");
     commands.spawn((
         Player { speed: 100.0 },
         Transform::default(),
@@ -121,7 +121,7 @@ fn enter_playing(mut commands: Commands) {
 }
 
 fn exit_playing(mut commands: Commands, query: Query<Entity, With<Player>>) {
-    info!("⏹️ Stopping game");
+    info!("Stopping game");
     for entity in &query {
         commands.entity(entity).despawn();
     }
@@ -189,7 +189,7 @@ fn check_level_up(mut stats: ResMut<PlayerStats>, mut level_up_events: EventWrit
         level_up_events.write(LevelUp {
             new_level: stats.level,
         });
-        info!("🎉 Level up! New level: {}", stats.level);
+        info!("Level up! New level: {}", stats.level);
     }
 }
 
@@ -201,7 +201,7 @@ fn handle_damage(
     for event in damage_events.read() {
         stats.health -= event.damage;
         info!(
-            "💔 Player took {} damage! Health: {}",
+            "Player took {} damage! Health: {}",
             event.damage, stats.health
         );
 
@@ -226,17 +226,17 @@ fn spawn_boss(mut commands: Commands, mut next_sub_state: ResMut<NextState<Playi
         Name::new("Boss"),
     ));
     next_sub_state.set(PlayingSubState::BossLevel);
-    info!("👹 Boss spawned!");
+    info!("Boss spawned!");
 }
 
 fn cleanup_boss(mut commands: Commands, query: Query<Entity, With<Boss>>) {
     for entity in &query {
         commands.entity(entity).despawn();
     }
-    info!("💀 Boss defeated!");
+    info!("Boss defeated!");
 }
 
-// 🚀 THE MAGIC: All advanced features in one declarative block!
+// All advanced features in one declarative block
 define_plugin!(ComplexGamePlugin {
     // Type registration
     resources: [GameSettings, PlayerStats, GameTimer],
@@ -284,7 +284,7 @@ define_plugin!(ComplexGamePlugin {
         // Conditional plugin registration
         #[cfg(debug_assertions)]
         {
-            info!("🔧 Debug mode enabled - adding diagnostics");
+            info!("Debug mode enabled - adding diagnostics");
             app.add_plugins(bevy::diagnostic::DiagnosticsPlugin::default());
         }
 
@@ -296,7 +296,7 @@ define_plugin!(ComplexGamePlugin {
     },
 
     custom_finish: |app: &mut App| {
-        info!("✅ ComplexGamePlugin initialization complete!");
+        info!("ComplexGamePlugin initialization complete!");
 
         // Validate plugin setup
         if !app.world().contains_resource::<GameSettings>() {
@@ -306,7 +306,7 @@ define_plugin!(ComplexGamePlugin {
 });
 
 // Traditional implementation would be 80+ lines of complex setup!
-// Our declarative approach: 25 lines of pure intent ✨
+// Declarative approach: 25 lines
 
 fn main() {
     App::new()

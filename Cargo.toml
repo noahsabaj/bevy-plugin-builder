@@ -1,11 +1,11 @@
 [package]
   name = "bevy-plugin-builder"
-  version = "0.1.2"
+  version = "0.1.3"
   edition = "2021"
   rust-version = "1.87"  # Follow Bevy's policy: latest stable
   authors = ["Noah Sabaj <noahsabaj@gmail.com>"]
   license = "MIT OR Apache-2.0"  # 2025 Bevy standard
-  description = "Declarative plugin system for Bevy - eliminate boilerplate with beautiful syntax"
+  description = "Declarative plugin system for Bevy"
   homepage = "https://github.com/noahsabaj/bevy-plugin-builder"
   repository = "https://github.com/noahsabaj/bevy-plugin-builder"
   documentation = "https://docs.rs/bevy-plugin-builder"

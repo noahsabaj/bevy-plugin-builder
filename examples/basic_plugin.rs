@@ -32,7 +32,7 @@ struct GameOver {
 
 // Define systems
 fn setup_game(mut commands: Commands) {
-    info!("🎮 Game setup complete!");
+    info!("Game setup complete!");
     commands.spawn((Name::new("Player"), Transform::default()));
 }
 
@@ -55,7 +55,7 @@ fn update_score(
 
 fn handle_game_over(mut game_over_events: EventReader<GameOver>) {
     for event in game_over_events.read() {
-        info!("🏆 Game Over! Final Score: {}", event.final_score);
+        info!("Game Over! Final Score: {}", event.final_score);
     }
 }
 
@@ -65,7 +65,7 @@ fn check_input(keyboard: Res<ButtonInput<KeyCode>>, mut score_events: EventWrite
     }
 }
 
-// 🚀 THE MAGIC: Replace 20+ lines of boilerplate with 8 lines of intent!
+// Replace 20+ lines of boilerplate with 8 lines
 define_plugin!(BasicGamePlugin {
     resources: [GameSettings, ScoreResource],
     events: [PlayerScored, GameOver],

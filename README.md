@@ -1,8 +1,6 @@
 # bevy-plugin-builder
 
- **Declarative plugin system for Bevy**
- 
- **Reduce boilerplate with readable syntax**
+Declarative plugin system for Bevy
 
  [![Crates.io](https://img.shields.io/crates/v/bevy-plugin-builder.svg)](https://crates.io/crates/bevy-plugin-builder)
  [![Documentation](https://docs.rs/bevy-plugin-builder/badge.svg)](https://docs.rs/bevy-plugin-builder)
@@ -48,15 +46,7 @@
  });
  ```
 
- Why This Matters
-
- - 37% less code on average
- - Zero registration errors (compile-time validation)
- - 10x faster plugin development
- - Perfect readability, intent over implementation
- - World-first features like custom_finish support
-
- Installation
+## Installation
 
  [dependencies]
  bevy-plugin-builder = "0.1"

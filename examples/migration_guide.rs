@@ -262,10 +262,10 @@ define_plugin!(CameraPlugin {
 /// ✅ **Self-Documenting**: Plugin capabilities visible at a glance
 /// ✅ **Easier Maintenance**: Add new systems/resources in logical sections
 /// ✅ **Better Testing**: Clear separation of concerns
-/// ✅ **Future-Proof**: Automatically adapts to new Bevy features
+/// **Future-Proof**: Automatically adapts to new Bevy features
 
 fn main() {
-    println!("🚀 Migration Guide Example");
+    println!("Migration Guide Example");
     println!("==========================");
     println!();
     println!("Traditional Plugin: 47 lines of boilerplate");

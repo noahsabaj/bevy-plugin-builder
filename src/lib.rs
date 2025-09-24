@@ -1,6 +1,6 @@
 //! # bevy-plugin-builder
 //!
-//! **Declarative plugin system for Bevy - eliminate boilerplate with beautiful syntax**
+//! Declarative plugin system for Bevy
 //!
 //! This crate provides the `define_plugin!` macro that eliminates boilerplate
 //! from Bevy plugin registration. Instead of manually implementing `Plugin`,
@@ -8,11 +8,9 @@
 //!
 //! ## Features
 //!
-//! - **Zero Boilerplate**: Eliminates repetitive `impl Plugin for` blocks
-//! - **Type Safety**: Compile-time validation of all registrations
-//! - **Comprehensive**: Supports all Bevy registration patterns
-//! - **Readable**: Plugin capabilities are visible at a glance
-//! - **Error Prevention**: Can't forget to register resources/events/systems
+//! - Eliminates repetitive `impl Plugin for` blocks
+//! - Compile-time validation of all registrations
+//! - Supports all Bevy registration patterns
 //!
 //! ## Quick Start
 //!
@@ -55,8 +53,6 @@
 //! fn update_physics() {}
 //! fn render_game() {}
 //!
-//! // Before: 20+ lines of boilerplate
-//! // After: 6 lines of pure intent
 //! define_plugin!(MyGamePlugin {
 //!     resources: [GameSettings, PlayerStats],
 //!     events: [PlayerDied, ScoreChanged],
@@ -164,13 +160,6 @@
 //!
 //! See the [examples](https://github.com/noahsabaj/bevy-plugin-builder/tree/main/examples) for complete migration examples.
 //!
-//! ## Why This Matters
-//!
-//! - **37% less code** on average compared to manual implementation
-//! - **Zero registration errors** - compile-time validation prevents common mistakes
-//! - **10x faster development** - focus on game logic, not plugin boilerplate
-//! - **Perfect readability** - plugin capabilities visible at a glance
-//! - **Future-proof** - automatically adapts to new Bevy features
 
 // Private implementation modules
 mod macros;
