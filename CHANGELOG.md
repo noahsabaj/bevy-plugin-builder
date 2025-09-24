@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2025-09-24
+
+### Fixed
+- CI workflow: Added clippy and rustfmt components to rust-toolchain setup
+- All clippy warnings and unused field errors across examples and tests
+- Removed unused struct fields to achieve zero warnings
+- Converted empty structs to unit structs for cleaner code
+- Fixed DiagnosticsPlugin::default() clippy warning
+
 ## [0.1.4] - 2025-09-24
 
 ### Added
@@ -78,7 +87,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Full Bevy 0.16 compatibility
 - Rust 1.87 MSRV (following Bevy's policy)
 
-[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.4...HEAD
+[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.5...HEAD
+[0.1.5]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.1...v0.1.2
