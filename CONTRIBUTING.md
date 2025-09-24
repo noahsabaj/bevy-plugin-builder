@@ -174,6 +174,37 @@ All submissions require review. We aim to:
 3. Reduce generated code size
 4. Maintain zero runtime overhead
 
+## Release Process
+
+### Automated Publishing with Trusted Publishing
+
+This project uses crates.io's Trusted Publishing feature for secure, automated releases:
+
+1. **Update version in `Cargo.toml`**
+2. **Update `CHANGELOG.md`:**
+   - Move items from `[Unreleased]` to new version section
+   - Add current date (run `date` command to verify)
+   - Update comparison links at bottom
+3. **Commit changes:**
+   ```bash
+   git add -A
+   git commit -m "Release vX.Y.Z - Brief description"
+   ```
+4. **Create and push tag:**
+   ```bash
+   git tag -a vX.Y.Z -m "Release vX.Y.Z"
+   git push origin main
+   git push origin vX.Y.Z  # This triggers automatic publishing
+   ```
+5. **Monitor release:**
+   - Check [GitHub Actions](https://github.com/noahsabaj/bevy-plugin-builder/actions)
+   - Release workflow will automatically publish to crates.io using OIDC
+
+### Important Notes
+- Only version tags (v*) can trigger releases due to environment protection rules
+- No API tokens required - uses Trusted Publishing with OIDC authentication
+- The `release` environment in GitHub repository settings controls deployment
+
 ## Questions?
 
 Feel free to:

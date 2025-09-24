@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.4] - 2025-09-24
+
+### Added
+- Configured Trusted Publishing for automated crates.io releases via GitHub Actions
+- GitHub environment protection rules for release workflow
+- Improved CI/CD documentation
+
+### Fixed
+- GitHub Actions workflow YAML syntax errors
+- CI workflow configuration (removed non-existent Bevy 0.17 tests)
+- Improved clippy configuration with --all-targets --all-features
+
+### Changed
+- Release workflow now uses OIDC authentication instead of API tokens
+- CI workflow simplified and optimized
+
 ## [0.1.3] - 2025-09-24
 
 ### Added
@@ -62,7 +78,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Full Bevy 0.16 compatibility
 - Rust 1.87 MSRV (following Bevy's policy)
 
-[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/noahsabaj/bevy-plugin-builder/releases/tag/v0.1.0
