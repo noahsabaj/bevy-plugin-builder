@@ -14,7 +14,6 @@ use bevy_plugin_builder::define_plugin;
 enum GameState {
     #[default]
     MainMenu,
-    Loading,
     Playing,
     Paused,
     GameOver,
@@ -26,7 +25,6 @@ enum PlayingSubState {
     #[default]
     Normal,
     BossLevel,
-    PoweredUp,
 }
 
 // Game resources
@@ -285,7 +283,7 @@ define_plugin!(ComplexGamePlugin {
         #[cfg(debug_assertions)]
         {
             info!("Debug mode enabled - adding diagnostics");
-            app.add_plugins(bevy::diagnostic::DiagnosticsPlugin::default());
+            app.add_plugins(bevy::diagnostic::DiagnosticsPlugin);
         }
 
         // Custom resource initialization

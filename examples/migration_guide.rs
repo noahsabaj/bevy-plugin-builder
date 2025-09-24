@@ -10,15 +10,10 @@ use bevy_plugin_builder::define_plugin;
 
 // Sample game components and resources
 #[derive(Resource, Default)]
-struct AudioSettings {
-    master_volume: f32,
-    sfx_volume: f32,
-}
+struct AudioSettings;
 
 #[derive(Resource, Default)]
-struct InputSettings {
-    mouse_sensitivity: f32,
-}
+struct InputSettings;
 
 #[derive(Event)]
 struct VolumeChanged {
@@ -34,12 +29,12 @@ enum AudioState {
 
 // Sample systems
 fn setup_audio_system() {
-    info!("🔊 Audio system initialized");
+    info!("Audio system initialized");
 }
 
 fn update_volume(mut volume_events: EventReader<VolumeChanged>) {
     for event in volume_events.read() {
-        info!("🎵 Volume changed to: {}", event.new_volume);
+        info!("Volume changed to: {}", event.new_volume);
     }
 }
 
@@ -49,20 +44,20 @@ fn process_audio() {
 
 fn handle_mute_toggle(keyboard: Res<ButtonInput<KeyCode>>) {
     if keyboard.just_pressed(KeyCode::KeyM) {
-        info!("🔇 Mute toggled");
+        info!("Mute toggled");
     }
 }
 
 fn enter_audio_enabled() {
-    info!("🎵 Audio enabled");
+    info!("Audio enabled");
 }
 
 fn enter_audio_disabled() {
-    info!("🔇 Audio disabled");
+    info!("Audio disabled");
 }
 
 // =============================================================================
-// BEFORE: Traditional Bevy Plugin (47 lines of boilerplate!)
+// BEFORE: Traditional Bevy Plugin
 // =============================================================================
 /*
 pub struct AudioPluginOld;
@@ -105,7 +100,7 @@ impl Plugin for AudioPluginOld {
     }
 
     fn finish(&self, app: &mut App) {
-        info!("🎵 AudioPlugin setup complete!");
+        info!("AudioPlugin setup complete!");
 
         // Validation logic
         if !app.world().contains_resource::<AudioSettings>() {
@@ -116,7 +111,7 @@ impl Plugin for AudioPluginOld {
 */
 
 // =============================================================================
-// AFTER: Declarative Plugin (15 lines of pure intent!)
+// AFTER: Declarative Plugin
 // =============================================================================
 
 define_plugin!(AudioPlugin {
@@ -142,7 +137,7 @@ define_plugin!(AudioPlugin {
 
     // Custom logic
     custom_finish: |app: &mut App| {
-        info!("🎵 AudioPlugin setup complete!");
+        info!("AudioPlugin setup complete!");
         if !app.world().contains_resource::<AudioSettings>() {
             panic!("AudioSettings not initialized properly!");
         }
@@ -153,34 +148,34 @@ define_plugin!(AudioPlugin {
 // MIGRATION STEPS
 // =============================================================================
 
-/// Step-by-step migration process:
-///
-/// 1. **Replace structure**:
-///    `impl Plugin for MyPlugin` → `define_plugin!(MyPlugin { ... })`
-///
-/// 2. **Group by type**:
-///    - All `init_resource` calls → `resources: [Type1, Type2]`
-///    - All `add_event` calls → `events: [Event1, Event2]`
-///    - All `init_state` calls → `states: [State1]`
-///
-/// 3. **Organize systems**:
-///    - `add_systems(Startup, ...)` → `startup: [...]`
-///    - `add_systems(Update, ...)` → `update: [...]`
-///    - `add_systems(OnEnter(...), ...)` → `on_enter: { State => [...] }`
-///
-/// 4. **Handle custom logic**:
-///    - Complex `build()` logic → `custom_init: |app| { ... }`
-///    - Custom `finish()` logic → `custom_finish: |app| { ... }`
-///
-/// 5. **Preserve conditions**:
-///    - System conditions and ordering work exactly the same
-///    - `.run_if(...)`, `.chain()`, etc. work identically
+// Step-by-step migration process:
+//
+// 1. **Replace structure**:
+//    `impl Plugin for MyPlugin` → `define_plugin!(MyPlugin { ... })`
+//
+// 2. **Group by type**:
+//    - All `init_resource` calls → `resources: [Type1, Type2]`
+//    - All `add_event` calls → `events: [Event1, Event2]`
+//    - All `init_state` calls → `states: [State1]`
+//
+// 3. **Organize systems**:
+//    - `add_systems(Startup, ...)` → `startup: [...]`
+//    - `add_systems(Update, ...)` → `update: [...]`
+//    - `add_systems(OnEnter(...), ...)` → `on_enter: { State => [...] }`
+//
+// 4. **Handle custom logic**:
+//    - Complex `build()` logic → `custom_init: |app| { ... }`
+//    - Custom `finish()` logic → `custom_finish: |app| { ... }`
+//
+// 5. **Preserve conditions**:
+//    - System conditions and ordering work exactly the same
+//    - `.run_if(...)`, `.chain()`, etc. work identically
 
 // =============================================================================
 // REAL-WORLD MIGRATION EXAMPLE
 // =============================================================================
 
-// Before: Typical camera plugin (32 lines)
+// Before: Typical camera plugin
 /*
 pub struct CameraPluginOld;
 
@@ -220,7 +215,7 @@ impl Plugin for CameraPluginOld {
 }
 */
 
-// After: Same functionality (19 lines - 40% reduction!)
+// After: Same functionality with declarative syntax
 /*
 define_plugin!(CameraPlugin {
     resources: [CameraBounds, WindowFocusState],
@@ -253,24 +248,21 @@ define_plugin!(CameraPlugin {
 // BENEFITS DEMONSTRATED
 // =============================================================================
 
-/// Migration Benefits:
-///
-/// ✅ **68% Less Code**: 47 lines → 15 lines
-/// ✅ **Zero Boilerplate**: No repetitive method chains
-/// ✅ **Perfect Readability**: Intent over implementation
-/// ✅ **Impossible to Forget**: Compiler enforces complete registration
-/// ✅ **Self-Documenting**: Plugin capabilities visible at a glance
-/// ✅ **Easier Maintenance**: Add new systems/resources in logical sections
-/// ✅ **Better Testing**: Clear separation of concerns
-/// **Future-Proof**: Automatically adapts to new Bevy features
+// Migration Benefits:
+//
+// - Less code with declarative syntax
+// - No repetitive method chains
+// - Improved readability
+// - Compile-time validation
+// - Plugin capabilities visible at a glance
+// - Easier maintenance with logical sections
 
 fn main() {
     println!("Migration Guide Example");
     println!("==========================");
     println!();
-    println!("Traditional Plugin: 47 lines of boilerplate");
-    println!("Declarative Plugin: 15 lines of pure intent");
-    println!("Reduction: 68% less code!");
+    println!("Traditional Plugin vs Declarative Plugin");
+    println!("Declarative syntax reduces boilerplate");
     println!();
     println!("Run `cargo run --example basic_plugin` to see it in action!");
 

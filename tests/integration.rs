@@ -14,14 +14,10 @@ struct TestResource {
 }
 
 #[derive(Resource, Default)]
-struct AnotherResource {
-    name: String,
-}
+struct AnotherResource;
 
 #[derive(Event)]
-struct TestEvent {
-    message: String,
-}
+struct TestEvent;
 
 #[derive(Event)]
 struct AnotherEvent;
@@ -205,9 +201,7 @@ fn test_event_registration() {
 
     // Test that we can send events without errors
     let mut test_events = app.world_mut().resource_mut::<Events<TestEvent>>();
-    test_events.send(TestEvent {
-        message: "test".to_string(),
-    });
+    test_events.send(TestEvent);
 
     // Verify that Events resource exists and we can access it
     assert!(app.world().contains_resource::<Events<TestEvent>>());

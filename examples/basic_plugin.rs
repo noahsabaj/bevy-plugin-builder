@@ -8,15 +8,11 @@ use bevy_plugin_builder::define_plugin;
 
 // Define game resources
 #[derive(Resource, Default)]
-struct GameSettings {
-    volume: f32,
-    difficulty: u8,
-}
+struct GameSettings;
 
 #[derive(Resource, Default)]
 struct ScoreResource {
     current: u32,
-    high: u32,
 }
 
 // Define game events
