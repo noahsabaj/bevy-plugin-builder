@@ -35,6 +35,40 @@ struct TestComponent {
     value: f32,
 }
 
+#[derive(Resource, Default)]
+struct NestedPluginResource;
+
+struct ManualNestedPlugin;
+
+impl Plugin for ManualNestedPlugin {
+    fn build(&self, app: &mut App) {
+        app.init_resource::<NestedPluginResource>();
+    }
+}
+
+#[derive(States, Default, Debug, Clone, PartialEq, Eq, Hash)]
+enum RootFlowState {
+    #[default]
+    Setup,
+    Active,
+}
+
+#[derive(SubStates, Default, Debug, Clone, PartialEq, Eq, Hash)]
+#[source(RootFlowState = RootFlowState::Active)]
+#[allow(dead_code)]
+enum ActiveSubState {
+    #[default]
+    PhaseOne,
+    PhaseTwo,
+}
+
+#[derive(Resource, Default)]
+struct SubStateTransitionCounter(u32);
+
+fn enter_phase_one(mut counter: ResMut<SubStateTransitionCounter>) {
+    counter.0 += 1;
+}
+
 // Test systems
 fn startup_system(mut commands: Commands) {
     commands.spawn(TestComponent { value: 42.0 });
@@ -96,6 +130,20 @@ define_plugin!(FullFeatureTestPlugin {
         // Validate resources are properly initialized
         assert!(app.world().contains_resource::<TestResource>());
         assert!(app.world().contains_resource::<AnotherResource>());
+    }
+});
+
+define_plugin!(ParentWithNestedPlugin {
+    plugins: [ManualNestedPlugin]
+});
+
+define_plugin!(SubStateTestPlugin {
+    resources: [SubStateTransitionCounter],
+    states: [RootFlowState],
+    sub_states: [ActiveSubState],
+
+    on_enter: {
+        ActiveSubState::PhaseOne => [enter_phase_one]
     }
 });
 
@@ -210,6 +258,37 @@ fn test_event_registration() {
     app.update();
 
     // The fact that we reached this point means event registration worked correctly
+}
+
+#[test]
+fn test_nested_plugin_registration() {
+    let mut app = App::new();
+    app.add_plugins(ParentWithNestedPlugin);
+
+    assert!(app.world().contains_resource::<NestedPluginResource>());
+}
+
+#[test]
+fn test_sub_state_registration_and_execution() {
+    let mut app = App::new();
+    app.add_plugins(StatesPlugin)
+        .add_plugins(SubStateTestPlugin);
+
+    assert!(app.world().contains_resource::<State<RootFlowState>>());
+    assert!(!app.world().contains_resource::<State<ActiveSubState>>());
+
+    let initial_counter = app.world().resource::<SubStateTransitionCounter>().0;
+    assert_eq!(initial_counter, 0);
+
+    app.world_mut()
+        .resource_mut::<NextState<RootFlowState>>()
+        .set(RootFlowState::Active);
+    app.update();
+
+    assert!(app.world().contains_resource::<State<ActiveSubState>>());
+
+    let counter = app.world().resource::<SubStateTransitionCounter>();
+    assert_eq!(counter.0, 1);
 }
 
 #[test]

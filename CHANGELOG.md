@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6] - 2025-09-26
+
+### Added
+- Integration tests covering nested plugin composition and sub-state initialization to guard macro arms
+- `trybuild` UI test framework with compile-fail tests for unknown plugin keys
+- Comprehensive test coverage for compile-time error messages
+
+### Fixed
+- Dead code warning for unused enum variant in integration tests
+
 ## [0.1.5] - 2025-09-24
 
 ### Fixed
@@ -87,7 +97,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Full Bevy 0.16 compatibility
 - Rust 1.87 MSRV (following Bevy's policy)
 
-[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.6...HEAD
+[0.1.6]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.2...v0.1.3

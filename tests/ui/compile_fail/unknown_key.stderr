@@ -1,0 +1,10 @@
+error: Unknown plugin configuration option: not_a_real_option
+       Supported options: resources, events, plugins, states, sub_states, reflect, startup, update, fixed_update, on_enter, on_exit, custom_init, custom_finish
+ --> tests/ui/compile_fail/unknown_key.rs:3:1
+  |
+3 | / define_plugin!(UnknownKeyPlugin {
+4 | |     not_a_real_option: [u32]
+5 | | });
+  | |__^
+  |
+  = note: this error originates in the macro `$crate::define_plugin_internal` which comes from the expansion of the macro `define_plugin` (in Nightly builds, run with -Z macro-backtrace for more info)
