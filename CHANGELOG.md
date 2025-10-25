@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-10-25
+
+### Changed (BREAKING)
+- **Bevy 0.17 compatibility**: Updated dependency from Bevy 0.16 to 0.17
+- **API Breaking Change**: Renamed `events:` configuration to `messages:` to align with Bevy 0.17 terminology
+- Macro now calls `add_message()` instead of deprecated `add_event()` for buffered events
+- All examples updated to use `#[derive(Message)]` with `MessageWriter`/`MessageReader`
+
+### Migration Guide for 0.1.x to 0.2.0
+Users upgrading from 0.1.x must:
+1. Change `events: [...]` to `messages: [...]` in all `define_plugin!` blocks
+2. Change `#[derive(Event)]` to `#[derive(Message)]` for buffered events
+3. Replace `EventWriter`/`EventReader` with `MessageWriter`/`MessageReader` in system parameters
+4. Update Bevy dependency to 0.17
+
 ## [0.1.6] - 2025-09-26
 
 ### Added
@@ -97,7 +112,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Full Bevy 0.16 compatibility
 - Rust 1.87 MSRV (following Bevy's policy)
 
-[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.6...HEAD
+[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.6...v0.2.0
 [0.1.6]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.3...v0.1.4

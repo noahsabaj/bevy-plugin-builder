@@ -18,8 +18,8 @@ Declarative plugin system for Bevy
      fn build(&self, app: &mut App) {
          app.init_resource::<GameSettings>()
             .init_resource::<PlayerStats>()
-            .add_event::<PlayerLevelUp>()
-            .add_event::<GameOver>()
+            .add_message::<PlayerLevelUp>()
+            .add_message::<GameOver>()
             .add_systems(Startup, initialize_game)
             .add_systems(Update, (
                 handle_input,
@@ -36,7 +36,7 @@ Declarative plugin system for Bevy
 
  define_plugin!(GamePlugin {
      resources: [GameSettings, PlayerStats],
-     events: [PlayerLevelUp, GameOver],
+     messages: [PlayerLevelUp, GameOver],
      startup: [initialize_game],
      update: [
          (handle_input, update_player, check_collisions)
@@ -49,5 +49,5 @@ Declarative plugin system for Bevy
 ## Installation
 
  [dependencies]
- bevy-plugin-builder = "0.1"
- bevy = "0.16"
+ bevy-plugin-builder = "0.2"
+ bevy = "0.17"

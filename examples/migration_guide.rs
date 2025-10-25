@@ -15,7 +15,7 @@ struct AudioSettings;
 #[derive(Resource, Default)]
 struct InputSettings;
 
-#[derive(Event)]
+#[derive(Message)]
 struct VolumeChanged {
     new_volume: f32,
 }
@@ -32,7 +32,7 @@ fn setup_audio_system() {
     info!("Audio system initialized");
 }
 
-fn update_volume(mut volume_events: EventReader<VolumeChanged>) {
+fn update_volume(mut volume_events: MessageReader<VolumeChanged>) {
     for event in volume_events.read() {
         info!("Volume changed to: {}", event.new_volume);
     }
@@ -69,8 +69,8 @@ impl Plugin for AudioPluginOld {
             .init_resource::<AudioSettings>()
             .init_resource::<InputSettings>()
 
-            // Events
-            .add_event::<VolumeChanged>()
+            // Messages
+            .add_message::<VolumeChanged>()
 
             // States
             .init_state::<AudioState>()
@@ -117,7 +117,7 @@ impl Plugin for AudioPluginOld {
 define_plugin!(AudioPlugin {
     // All registration in organized sections
     resources: [AudioSettings, InputSettings],
-    events: [VolumeChanged],
+    messages: [VolumeChanged],
     states: [AudioState],
 
     // System scheduling
@@ -155,7 +155,7 @@ define_plugin!(AudioPlugin {
 //
 // 2. **Group by type**:
 //    - All `init_resource` calls → `resources: [Type1, Type2]`
-//    - All `add_event` calls → `events: [Event1, Event2]`
+//    - All `add_message` calls → `messages: [Message1, Message2]`
 //    - All `init_state` calls → `states: [State1]`
 //
 // 3. **Organize systems**:

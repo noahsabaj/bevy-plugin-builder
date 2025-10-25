@@ -1,6 +1,6 @@
 [package]
   name = "bevy-plugin-builder"
-  version = "0.1.6"
+  version = "0.2.0"
   edition = "2021"
   rust-version = "1.87"  # Follow Bevy's policy: latest stable
   authors = ["Noah Sabaj <noahsabaj@gmail.com>"]
@@ -15,10 +15,10 @@
   exclude = ["assets/", "examples/screenshots/"]
 
   [dependencies]
-  bevy = "0.16"
+  bevy = "0.17"
 
   [dev-dependencies]
-  bevy = { version = "0.16", features = ["default"] }
+  bevy = { version = "0.17", features = ["default"] }
   trybuild = "1.0"  # For macro testing
 
   [workspace]

@@ -16,10 +16,10 @@ struct TestResource {
 #[derive(Resource, Default)]
 struct AnotherResource;
 
-#[derive(Event)]
+#[derive(Message)]
 struct TestEvent;
 
-#[derive(Event)]
+#[derive(Message)]
 struct AnotherEvent;
 
 #[derive(States, Default, Debug, Clone, PartialEq, Eq, Hash)]
@@ -95,7 +95,7 @@ fn exit_state_a() {
 // Test plugin with basic functionality
 define_plugin!(BasicTestPlugin {
     resources: [TestResource],
-    events: [TestEvent],
+    messages: [TestEvent],
     startup: [startup_system],
     update: [update_system]
 });
@@ -103,7 +103,7 @@ define_plugin!(BasicTestPlugin {
 // Test plugin with all features
 define_plugin!(FullFeatureTestPlugin {
     resources: [TestResource, AnotherResource],
-    events: [TestEvent, AnotherEvent],
+    messages: [TestEvent, AnotherEvent],
     states: [TestState],
     reflect: [TestComponent],
 
@@ -247,17 +247,17 @@ fn test_event_registration() {
     let mut app = App::new();
     app.add_plugins(BasicTestPlugin);
 
-    // Test that we can send events without errors
-    let mut test_events = app.world_mut().resource_mut::<Events<TestEvent>>();
-    test_events.send(TestEvent);
+    // Test that we can send messages without errors
+    let mut test_events = app.world_mut().resource_mut::<Messages<TestEvent>>();
+    test_events.write(TestEvent);
 
-    // Verify that Events resource exists and we can access it
-    assert!(app.world().contains_resource::<Events<TestEvent>>());
+    // Verify that Messages resource exists and we can access it
+    assert!(app.world().contains_resource::<Messages<TestEvent>>());
 
-    // Run an update to process the events
+    // Run an update to process the messages
     app.update();
 
-    // The fact that we reached this point means event registration worked correctly
+    // The fact that we reached this point means message registration worked correctly
 }
 
 #[test]

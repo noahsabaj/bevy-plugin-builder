@@ -15,13 +15,13 @@ struct ScoreResource {
     current: u32,
 }
 
-// Define game events
-#[derive(Event)]
+// Define game messages
+#[derive(Message)]
 struct PlayerScored {
     points: u32,
 }
 
-#[derive(Event)]
+#[derive(Message)]
 struct GameOver {
     final_score: u32,
 }
@@ -34,8 +34,8 @@ fn setup_game(mut commands: Commands) {
 
 fn update_score(
     mut score: ResMut<ScoreResource>,
-    mut score_events: EventReader<PlayerScored>,
-    mut game_over_events: EventWriter<GameOver>,
+    mut score_events: MessageReader<PlayerScored>,
+    mut game_over_events: MessageWriter<GameOver>,
 ) {
     for event in score_events.read() {
         score.current += event.points;
@@ -49,13 +49,13 @@ fn update_score(
     }
 }
 
-fn handle_game_over(mut game_over_events: EventReader<GameOver>) {
+fn handle_game_over(mut game_over_events: MessageReader<GameOver>) {
     for event in game_over_events.read() {
         info!("Game Over! Final Score: {}", event.final_score);
     }
 }
 
-fn check_input(keyboard: Res<ButtonInput<KeyCode>>, mut score_events: EventWriter<PlayerScored>) {
+fn check_input(keyboard: Res<ButtonInput<KeyCode>>, mut score_events: MessageWriter<PlayerScored>) {
     if keyboard.just_pressed(KeyCode::Space) {
         score_events.write(PlayerScored { points: 10 });
     }
@@ -64,7 +64,7 @@ fn check_input(keyboard: Res<ButtonInput<KeyCode>>, mut score_events: EventWrite
 // Replace 20+ lines of boilerplate with 8 lines
 define_plugin!(BasicGamePlugin {
     resources: [GameSettings, ScoreResource],
-    events: [PlayerScored, GameOver],
+    messages: [PlayerScored, GameOver],
     startup: [setup_game],
     update: [update_score, handle_game_over, check_input]
 });
@@ -77,8 +77,8 @@ impl Plugin for BasicGamePlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<GameSettings>()
            .init_resource::<ScoreResource>()
-           .add_event::<PlayerScored>()
-           .add_event::<GameOver>()
+           .add_message::<PlayerScored>()
+           .add_message::<GameOver>()
            .add_systems(Startup, setup_game)
            .add_systems(Update, (
                update_score,

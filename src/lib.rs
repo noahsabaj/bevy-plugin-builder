@@ -17,8 +17,8 @@
 //! Add to your `Cargo.toml`:
 //! ```toml
 //! [dependencies]
-//! bevy-plugin-builder = "0.1"
-//! bevy = "0.16"
+//! bevy-plugin-builder = "0.2"
+//! bevy = "0.17"
 //! ```
 //!
 //! Then transform your plugins:
@@ -34,10 +34,10 @@
 //! #[derive(Resource, Default)]
 //! struct PlayerStats;
 //!
-//! #[derive(Event)]
+//! #[derive(Message)]
 //! struct PlayerDied;
 //!
-//! #[derive(Event)]
+//! #[derive(Message)]
 //! struct ScoreChanged;
 //!
 //! #[derive(States, Default, Debug, Clone, PartialEq, Eq, Hash)]
@@ -55,7 +55,7 @@
 //!
 //! define_plugin!(MyGamePlugin {
 //!     resources: [GameSettings, PlayerStats],
-//!     events: [PlayerDied, ScoreChanged],
+//!     messages: [PlayerDied, ScoreChanged],
 //!     startup: [setup_game],
 //!     update: [
 //!         (handle_input, update_physics, render_game)
@@ -68,7 +68,7 @@
 //! ## Supported Configuration Options
 //!
 //! - **`resources: [Type1, Type2]`** - Initialize resources with `init_resource`
-//! - **`events: [Event1, Event2]`** - Register events with `add_event`
+//! - **`messages: [Message1, Message2]`** - Register messages with `add_message`
 //! - **`plugins: [Plugin1, Plugin2]`** - Add sub-plugins with `add_plugins`
 //! - **`states: [State1]`** - Initialize states with `init_state`
 //! - **`sub_states: [SubState1]`** - Add sub-states with `add_sub_state`
@@ -99,13 +99,13 @@
 //! #[reflect(Resource)]
 //! struct GameSettings { volume: f32 }
 //!
-//! #[derive(Event)]
+//! #[derive(Message)]
 //! struct GameStarted;
 //!
 //! define_plugin!(ComplexGamePlugin {
 //!     // Type registration
 //!     resources: [GameSettings],
-//!     events: [GameStarted],
+//!     messages: [GameStarted],
 //!     states: [GameState],
 //!     reflect: [GameSettings],
 //!

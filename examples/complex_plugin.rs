@@ -49,18 +49,18 @@ struct GameTimer {
     seconds: f32,
 }
 
-// Game events
-#[derive(Event, Reflect)]
+// Game messages
+#[derive(Message, Reflect)]
 struct LevelUp {
     new_level: u32,
 }
 
-#[derive(Event)]
+#[derive(Message)]
 struct PlayerDamaged {
     damage: f32,
 }
 
-#[derive(Event)]
+#[derive(Message)]
 struct BossDefeated;
 
 // Game components
@@ -179,7 +179,7 @@ fn update_game_timer(time: Res<Time>, mut timer: ResMut<GameTimer>) {
     timer.seconds += time.delta_secs();
 }
 
-fn check_level_up(mut stats: ResMut<PlayerStats>, mut level_up_events: EventWriter<LevelUp>) {
+fn check_level_up(mut stats: ResMut<PlayerStats>, mut level_up_events: MessageWriter<LevelUp>) {
     let required_xp = (stats.level + 1) * 100;
     if stats.experience >= required_xp {
         stats.level += 1;
@@ -192,7 +192,7 @@ fn check_level_up(mut stats: ResMut<PlayerStats>, mut level_up_events: EventWrit
 }
 
 fn handle_damage(
-    mut damage_events: EventReader<PlayerDamaged>,
+    mut damage_events: MessageReader<PlayerDamaged>,
     mut stats: ResMut<PlayerStats>,
     mut next_state: ResMut<NextState<GameState>>,
 ) {
@@ -238,7 +238,7 @@ fn cleanup_boss(mut commands: Commands, query: Query<Entity, With<Boss>>) {
 define_plugin!(ComplexGamePlugin {
     // Type registration
     resources: [GameSettings, PlayerStats, GameTimer],
-    events: [LevelUp, PlayerDamaged, BossDefeated],
+    messages: [LevelUp, PlayerDamaged, BossDefeated],
     states: [GameState],
     sub_states: [PlayingSubState],
     reflect: [GameSettings, Player, Boss, LevelUp],

@@ -11,7 +11,7 @@
 /// ## Supported Configuration Options
 ///
 /// - `resources: [Type1, Type2]` - Initialize resources with `init_resource`
-/// - `events: [Event1, Event2]` - Register events with `add_event`
+/// - `messages: [Message1, Message2]` - Register messages with `add_message`
 /// - `plugins: [Plugin1, Plugin2]` - Add sub-plugins with `add_plugins`
 /// - `states: [State1]` - Initialize states with `init_state`
 /// - `sub_states: [SubState1]` - Add sub-states with `add_sub_state`
@@ -33,15 +33,15 @@
 /// #[derive(Resource, Default)]
 /// struct MyResource;
 ///
-/// #[derive(Event)]
-/// struct MyEvent;
+/// #[derive(Message)]
+/// struct MyMessage;
 ///
 /// fn setup_system() {}
 /// fn update_system() {}
 ///
 /// define_plugin!(MyPlugin {
 ///     resources: [MyResource],
-///     events: [MyEvent],
+///     messages: [MyMessage],
 ///     startup: [setup_system],
 ///     update: [update_system]
 /// });
@@ -53,8 +53,8 @@
 /// # use bevy::prelude::*;
 /// # #[derive(Resource, Default)]
 /// # struct MyResource;
-/// # #[derive(Event)]
-/// # struct MyEvent;
+/// # #[derive(Message)]
+/// # struct MyMessage;
 /// # fn setup_system() {}
 /// # fn update_system() {}
 /// pub struct MyPlugin;
@@ -62,7 +62,7 @@
 /// impl Plugin for MyPlugin {
 ///     fn build(&self, app: &mut App) {
 ///         app.init_resource::<MyResource>()
-///            .add_event::<MyEvent>()
+///            .add_message::<MyMessage>()
 ///            .add_systems(Startup, setup_system)
 ///            .add_systems(Update, update_system);
 ///     }
@@ -101,10 +101,10 @@ macro_rules! define_plugin_internal {
         $crate::define_plugin_internal!($app, $($($rest)*)?);
     };
 
-    // Events registration
-    ($app:ident, events: [$($event:ty),* $(,)?] $(, $($rest:tt)*)?) => {
+    // Messages registration
+    ($app:ident, messages: [$($message:ty),* $(,)?] $(, $($rest:tt)*)?) => {
         $(
-            $app.add_event::<$event>();
+            $app.add_message::<$message>();
         )*
         $crate::define_plugin_internal!($app, $($($rest)*)?);
     };
@@ -206,7 +206,7 @@ macro_rules! define_plugin_internal {
         compile_error!(concat!(
             "Unknown plugin configuration option: ",
             stringify!($unknown),
-            "\nSupported options: resources, events, plugins, states, sub_states, reflect, startup, update, fixed_update, on_enter, on_exit, custom_init, custom_finish"
+            "\nSupported options: resources, messages, plugins, states, sub_states, reflect, startup, update, fixed_update, on_enter, on_exit, custom_init, custom_finish"
         ));
     };
 }
@@ -221,7 +221,7 @@ macro_rules! define_plugin_finish {
     ($app:ident, resources: [$($resource:ty),* $(,)?] $(, $($rest:tt)*)?) => {
         $crate::define_plugin_finish!($app, $($($rest)*)?);
     };
-    ($app:ident, events: [$($event:ty),* $(,)?] $(, $($rest:tt)*)?) => {
+    ($app:ident, messages: [$($message:ty),* $(,)?] $(, $($rest:tt)*)?) => {
         $crate::define_plugin_finish!($app, $($($rest)*)?);
     };
     ($app:ident, plugins: [$($plugin:expr),* $(,)?] $(, $($rest:tt)*)?) => {
