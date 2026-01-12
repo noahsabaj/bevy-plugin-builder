@@ -1,3 +1,5 @@
+# Archived. This is more work than help. Just use Bevy's native plugins.
+
 # bevy-plugin-builder
 
 Declarative plugin system for Bevy
