@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-01-11
+
+### Changed (BREAKING)
+- **Bevy 0.18 compatibility**: Updated dependency from Bevy 0.17 to 0.18.0-rc.2
+- **Removed inspector feature**: The `inspector` feature and bevy-inspector-egui integration have been removed (can be re-added when a Bevy 0.18 compatible version is available)
+- **MSRV updated**: Minimum supported Rust version changed from 1.87 to 1.91 (required for const TypeId::of in introspection feature)
+
+### Removed
+- `inspector` feature flag
+- bevy-inspector-egui dependency
+- src/inspector.rs module
+- All inspector-related macro code
+
+### Migration Guide for 0.2.x to 0.3.0
+Users upgrading from 0.2.x must:
+1. Update Bevy dependency to 0.18.0-rc.2 (or 0.18 when stable is released)
+2. Remove any usage of the `inspector` feature flag
+3. Ensure Rust toolchain is at least version 1.91
+
 ## [0.2.0] - 2025-10-25
 
 ### Changed (BREAKING)
@@ -112,7 +131,8 @@ Users upgrading from 0.1.x must:
 - Full Bevy 0.16 compatibility
 - Rust 1.87 MSRV (following Bevy's policy)
 
-[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.6...v0.2.0
 [0.1.6]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/noahsabaj/bevy-plugin-builder/compare/v0.1.4...v0.1.5

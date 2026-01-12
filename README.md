@@ -49,5 +49,5 @@ Declarative plugin system for Bevy
 ## Installation
 
  [dependencies]
- bevy-plugin-builder = "0.2"
- bevy = "0.17"
+ bevy-plugin-builder = "0.3"
+ bevy = "0.18.0-rc.2"

@@ -1,5 +1,5 @@
 error: Unknown plugin configuration option: not_a_real_option
-       Supported options: resources, messages, plugins, states, sub_states, reflect, startup, update, fixed_update, on_enter, on_exit, custom_init, custom_finish
+       Supported options: depends_on, meta, init_resource, insert_resource, add_message, add_plugins, init_state, add_sub_state, register_type, add_systems_startup, add_systems_update, add_systems_fixed_update, add_systems_on_enter, add_systems_on_exit, custom_build, custom_finish, generate_tests
  --> tests/ui/compile_fail/unknown_key.rs:3:1
   |
 3 | / define_plugin!(UnknownKeyPlugin {

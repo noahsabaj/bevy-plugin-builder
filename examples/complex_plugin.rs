@@ -235,18 +235,19 @@ fn cleanup_boss(mut commands: Commands, query: Query<Entity, With<Boss>>) {
 }
 
 // All advanced features in one declarative block
+// Using Bevy-aligned syntax for clarity
 define_plugin!(ComplexGamePlugin {
-    // Type registration
-    resources: [GameSettings, PlayerStats, GameTimer],
-    messages: [LevelUp, PlayerDamaged, BossDefeated],
-    states: [GameState],
-    sub_states: [PlayingSubState],
-    reflect: [GameSettings, Player, Boss, LevelUp],
+    // Type registration (Bevy-aligned naming)
+    init_resource: [GameSettings, PlayerStats, GameTimer],
+    add_message: [LevelUp, PlayerDamaged, BossDefeated],
+    init_state: [GameState],
+    add_sub_state: [PlayingSubState],
+    register_type: [GameSettings, Player, Boss, LevelUp],
 
-    // System scheduling
-    startup: [setup_game_world, load_game_assets],
+    // System scheduling (Bevy-aligned naming)
+    add_systems_startup: [setup_game_world, load_game_assets],
 
-    update: [
+    add_systems_update: [
         // Menu systems
         handle_menu_input.run_if(in_state(GameState::MainMenu)),
 
@@ -260,25 +261,25 @@ define_plugin!(ComplexGamePlugin {
         handle_damage.run_if(any_with_component::<Player>)
     ],
 
-    fixed_update: [
+    add_systems_fixed_update: [
         physics_simulation.run_if(in_state(GameState::Playing))
     ],
 
-    // State transitions
-    on_enter: {
+    // State transitions (Bevy-aligned naming)
+    add_systems_on_enter: {
         GameState::MainMenu => [enter_main_menu],
         GameState::Playing => [enter_playing],
         PlayingSubState::BossLevel => [spawn_boss]
     },
 
-    on_exit: {
+    add_systems_on_exit: {
         GameState::MainMenu => [exit_main_menu],
         GameState::Playing => [exit_playing],
         PlayingSubState::BossLevel => [cleanup_boss]
     },
 
-    // Custom logic with proper type annotations
-    custom_init: |app: &mut App| {
+    // Custom logic (Bevy-aligned naming)
+    custom_build: |app: &mut App| {
         // Conditional plugin registration
         #[cfg(debug_assertions)]
         {

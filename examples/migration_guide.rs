@@ -111,31 +111,31 @@ impl Plugin for AudioPluginOld {
 */
 
 // =============================================================================
-// AFTER: Declarative Plugin
+// AFTER: Declarative Plugin (Bevy-aligned syntax)
 // =============================================================================
 
 define_plugin!(AudioPlugin {
-    // All registration in organized sections
-    resources: [AudioSettings, InputSettings],
-    messages: [VolumeChanged],
-    states: [AudioState],
+    // All registration in organized sections (Bevy-aligned naming)
+    init_resource: [AudioSettings, InputSettings],
+    add_message: [VolumeChanged],
+    init_state: [AudioState],
 
-    // System scheduling
-    startup: [setup_audio_system],
+    // System scheduling (Bevy-aligned naming)
+    add_systems_startup: [setup_audio_system],
 
-    update: [
+    add_systems_update: [
         update_volume,
         process_audio.run_if(in_state(AudioState::Enabled)),
         handle_mute_toggle
     ],
 
-    // State transitions
-    on_enter: {
+    // State transitions (Bevy-aligned naming)
+    add_systems_on_enter: {
         AudioState::Enabled => [enter_audio_enabled],
         AudioState::Disabled => [enter_audio_disabled]
     },
 
-    // Custom logic
+    // Custom logic (Bevy-aligned naming)
     custom_finish: |app: &mut App| {
         info!("AudioPlugin setup complete!");
         if !app.world().contains_resource::<AudioSettings>() {
@@ -153,18 +153,22 @@ define_plugin!(AudioPlugin {
 // 1. **Replace structure**:
 //    `impl Plugin for MyPlugin` → `define_plugin!(MyPlugin { ... })`
 //
-// 2. **Group by type**:
-//    - All `init_resource` calls → `resources: [Type1, Type2]`
-//    - All `add_message` calls → `messages: [Message1, Message2]`
-//    - All `init_state` calls → `states: [State1]`
+// 2. **Group by type** (using Bevy-aligned naming):
+//    - All `init_resource` calls → `init_resource: [Type1, Type2]`
+//    - All `add_message` calls → `add_message: [Message1, Message2]`
+//    - All `init_state` calls → `init_state: [State1]`
+//    - All `add_sub_state` calls → `add_sub_state: [SubState1]`
+//    - All `register_type` calls → `register_type: [Type1, Type2]`
 //
-// 3. **Organize systems**:
-//    - `add_systems(Startup, ...)` → `startup: [...]`
-//    - `add_systems(Update, ...)` → `update: [...]`
-//    - `add_systems(OnEnter(...), ...)` → `on_enter: { State => [...] }`
+// 3. **Organize systems** (using Bevy-aligned naming):
+//    - `add_systems(Startup, ...)` → `add_systems_startup: [...]`
+//    - `add_systems(Update, ...)` → `add_systems_update: [...]`
+//    - `add_systems(FixedUpdate, ...)` → `add_systems_fixed_update: [...]`
+//    - `add_systems(OnEnter(...), ...)` → `add_systems_on_enter: { State => [...] }`
+//    - `add_systems(OnExit(...), ...)` → `add_systems_on_exit: { State => [...] }`
 //
 // 4. **Handle custom logic**:
-//    - Complex `build()` logic → `custom_init: |app| { ... }`
+//    - Complex `build()` logic → `custom_build: |app| { ... }`
 //    - Custom `finish()` logic → `custom_finish: |app| { ... }`
 //
 // 5. **Preserve conditions**:
@@ -215,14 +219,14 @@ impl Plugin for CameraPluginOld {
 }
 */
 
-// After: Same functionality with declarative syntax
+// After: Same functionality with declarative syntax (Bevy-aligned naming)
 /*
 define_plugin!(CameraPlugin {
-    resources: [CameraBounds, WindowFocusState],
+    init_resource: [CameraBounds, WindowFocusState],
 
-    startup: [setup_camera],
+    add_systems_startup: [setup_camera],
 
-    update: [
+    add_systems_update: [
         (
             handle_keyboard_movement,
             handle_mouse_wheel_zoom,
@@ -235,11 +239,11 @@ define_plugin!(CameraPlugin {
         ).chain().run_if(in_state(GameState::InGame))
     ],
 
-    on_enter: {
+    add_systems_on_enter: {
         GameState::InGame => [calculate_camera_bounds, setup_cursor_confinement]
     },
 
-    on_exit: {
+    add_systems_on_exit: {
         GameState::InGame => [release_cursor_confinement]
     }
 });

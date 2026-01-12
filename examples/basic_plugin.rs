@@ -62,11 +62,12 @@ fn check_input(keyboard: Res<ButtonInput<KeyCode>>, mut score_events: MessageWri
 }
 
 // Replace 20+ lines of boilerplate with 8 lines
+// Using Bevy-aligned syntax for clarity
 define_plugin!(BasicGamePlugin {
-    resources: [GameSettings, ScoreResource],
-    messages: [PlayerScored, GameOver],
-    startup: [setup_game],
-    update: [update_score, handle_game_over, check_input]
+    init_resource: [GameSettings, ScoreResource],
+    add_message: [PlayerScored, GameOver],
+    add_systems_startup: [setup_game],
+    add_systems_update: [update_score, handle_game_over, check_input]
 });
 
 // Compare with traditional Bevy plugin:
